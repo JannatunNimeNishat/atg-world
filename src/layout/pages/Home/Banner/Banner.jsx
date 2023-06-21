@@ -3,7 +3,7 @@ import './Banner.css'
 const Banner = () => {
     return (
         // <div className="banner-container position-relative">
-        <div className=" position-relative" >
+        <div className=" position-relative " >
              <img src={img} alt="Background Image" className="img-fluid" ></img>
             <div className="position-absolute top-0 start-0 w-100 h-100 " style={{backgroundColor:"rgba(0, 0, 0, 0.6)"}}></div>
 

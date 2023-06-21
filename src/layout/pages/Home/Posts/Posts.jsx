@@ -2,6 +2,10 @@
 import people from '../../../../assets/desktop/posts/people.png'
 import Post from '../../Post/Post';
 
+import locationMark from '../../../../assets/desktop/posts/location.png'
+import edit from '../../../../assets/desktop/posts/edit.png'
+import close from '../../../../assets/desktop/posts/close.png'
+import ex from '../../../../assets/desktop/posts/exclemotri.png'
 const Posts = () => {
     return (
         <div className="container-md " style={{ marginTop: '40px' }}>
@@ -34,13 +38,39 @@ const Posts = () => {
 
             {/* posts content */}
 
-            <div className='container mt-3'>
-                <div className='row'>
-                    <div className="col-8">
+            <div className=' mt-3'>
+
+                <div className=' row'>
+                    <div className="col-12 col-md-8">
                         <Post></Post>
                     </div>
-                    <div className="col-4 ps-5">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur aliquam ipsam placeat quibusdam odit porro nulla non veritatis molestiae aut, voluptatum pariatur eos reprehenderit? Culpa reiciendis autem commodi itaque saepe neque iure ex doloribus vitae quaerat debitis, maiores sed error repellat iusto ipsum totam excepturi natus hic laboriosam fugiat numquam laudantium? Magnam magni voluptatum odio recusandae reiciendis mollitia corrupti consequatur, quas iste! Fugiat tempora consequuntur assumenda repudiandae beatae corporis accusantium voluptates, quas suscipit sit vero saepe deserunt laudantium eius quam officia possimus, mollitia necessitatibus officiis a corrupti? Reiciendis dolores accusantium placeat! Consequuntur sint dolores quis possimus? Magnam velit aliquid unde.
+
+                    <div className=" d-none d-md-block col-4 ps-5 px-5 ">
+
+                        <div className='d-flex align-items-center justify-content-between '>
+                            <p className='d-flex align-items-center gap-3 pt-2'>
+                                <img src={locationMark} alt="" />
+                                <span>Noida, India</span>
+                            </p>
+                            <img src={edit} alt="" />
+                        </div>
+                        <hr className='mt-0 '/>
+
+                      {/*   <div className='d-flex align-items-center justify-content-between '>
+                            
+                                <img src={locationMark} alt="" />
+                             
+                                <input className='border-0' placeholder='|Enter your location' type="text" />
+                            <img src={close} alt="" />
+                        </div>
+                        <hr className='mt-0'/> */}
+                     
+                    
+                       <p className='pt-3'><small className=''>
+                        <img className='mb-1 pl-2' src={ex} alt="" />
+                         Your location will help us serve better and extend a personalised experience.
+                        </small></p>
+
                     </div>
                 </div>
             </div>
