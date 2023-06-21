@@ -160,21 +160,11 @@ const Post = () => {
                             <p className='fw-semibold'>💼️ Job</p>
                             <h4>Software Developer</h4>
 
-                            {/*   <div className='d-flex gap-3 pt-1'>
-                                <p className='fw-bold d-flex align-items-center gap-2 '>
-                                    <img src={p4_1} alt="" />
-                                    Innovaccer Analytics Private Ltd.
-                                </p>
-                                <p className='fw-bold d-flex align-items-center gap-2 '>
-                                    <img src={p3_3} alt="" />
-                                    Noida, India
-                                </p>
-                            </div> */}
                         </div>
 
                         <div >
 
-                            {/* <BsThreeDots className='fw-bold  ' style={{ width: "10px" }} /> */}
+                           
                             <img src={threeDots} alt="" />
 
                         </div>
