@@ -47,18 +47,7 @@ const Navbar = () => {
             </div>
         </nav>
 
-        // <nav>
-
-
-        //         <div className=' w-100 border d-flex justify-content-between  ' aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation" style={{ height: '50px' }}>
-        //             <Link> <img src={arrow_left} alt="" /> </Link>
-        //            <button type="button" className=" btn btn-outline-dark">Join Group</button>
-        //     </div>
-
-
-        // </nav> 
-
-
+       
     );
 };
 
