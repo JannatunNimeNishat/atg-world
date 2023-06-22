@@ -3,7 +3,7 @@
 import logo from '../../../assets/desktop/navbar/logo.svg'
 import search_icon from '../../../assets/desktop/navbar/search-icon.png'
 import arrow from '../../../assets/desktop/navbar/arrow_back.png'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import signUpLogo from "../../../assets/desktop/modal/signUp.svg"
 import eye from '../../../assets/desktop/modal/eye.png'
 
@@ -11,26 +11,62 @@ import facebook from '../../../assets/desktop/modal/facebook.png'
 import google from '../../../assets/desktop/modal/gmail.png'
 
 import { useForm } from "react-hook-form";
+import { useContext } from 'react';
+import { AuthContext } from '../../../providers/AuthProvider';
+
+import { FiLogOut } from "react-icons/fi";
 
 const Navbar = () => {
 
-
-
+    const { user, loading, signUp, updateUser, signIn, googleSignIn, logOut } = useContext(AuthContext)
+    const navigate = useNavigate()
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {
         console.log(data);
+        signUp(data.email, data.password)
+            .then(result => {
+                console.log(result.user);
+                const photoURL = `https://i.ibb.co/D5vPJRw/every-User-Img.png`
+                updateUser(data.firstName, photoURL)
+                    .then(result => {
+                        console.log(result.user);
+                    })
+                    .catch(error => {
+                        console.log(error.message);
+                    })
+            })
+            .catch(error => {
+                console.log(error.message);
+            })
 
     }
 
     const handleSignIn = (e) => {
-        e.preventDefault()g
+        e.preventDefault()
         const email = e.target.email.value;
         const password = e.target.password.value;
-        console.log(email,password);
+        console.log(email, password);
+        signIn(email, password)
+            .then(result => {
+                console.log(result.user);
+                // navigate('/')
+            })
+            .catch(error => {
+                console.log(error.message);
+            })
 
     }
 
+    const handleLogOut = ()=>{
+        logOut()
+        .then(()=>{
+
+        })
+        .catch((error)=>{
+            console.log(error.message);
+        })
+    }
 
 
     return (
@@ -252,12 +288,35 @@ const Navbar = () => {
 
                         {/* <ul className="navbar-nav navbar-nav-scroll mb-2 mb-lg-0"> */}
                         <ul className="navbar-nav  mb-2 mb-lg-0">
-                            <li className="nav-item">
-                                <a data-bs-toggle="modal" href="#exampleModalToggle" className="nav-link d-flex">
-                                    <span className="fw-semibold">Create account. <span className="text-primary fw-bold">It's free!</span></span>
-                                    <select className="border-0" name="" id=""></select>
-                                </a>
-                            </li>
+                            {
+                                user ?
+                                    <>
+                                     <li className="nav-item">
+                                            <Link className="nav-link d-flex align-items-center gap-2">
+                                                <img src={user.photoURL} alt="" />
+                                                <span className="fw-semibold">{user.displayName} </span>
+                                                <select onClick={handleLogOut} className="border-0" name="" id="">
+                                                    <option value=""></option>
+                                                   {/*  <option className='' value="">
+                                                        <FiLogOut className=' bg-black'/>
+                                                        logout
+                                                        </option> */}
+                                                </select>
+                                            </Link>
+
+                                        </li>
+                                    </>
+                                    :
+                                    <>
+                                        <li className="nav-item">
+                                            <a data-bs-toggle="modal" href="#exampleModalToggle" className="nav-link d-flex">
+                                                <span className="fw-semibold">Create account. <span className="text-primary fw-bold">It's free!</span></span>
+                                                <select className="border-0" name="" id=""></select>
+                                            </a>
+
+                                        </li>
+                                    </>
+                            }
 
                         </ul>
 
