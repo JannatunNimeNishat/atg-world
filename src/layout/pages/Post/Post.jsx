@@ -14,11 +14,35 @@ import threeDots from '../../../assets/desktop/post/threeDotes.png'
 import { BsShareFill } from "react-icons/bs";
 import { AiOutlineEye } from "react-icons/ai";
 
+// 
+import signUpLogo from "../../../assets/desktop/modal/signUp.svg"
+import eye from '../../../assets/desktop/modal/eye.png'
 
+import facebook from '../../../assets/desktop/modal/facebook.png'
+import google from '../../../assets/desktop/modal/gmail.png'
+
+// 
+
+
+import { Container, Button, lightColors, darkColors } from 'react-floating-action-button'
 
 const Post = () => {
+
+
+
     return (
-        <>
+        <>  
+            <div className='d-flex d-md-none' data-bs-toggle="modal" href="#exampleModalToggle" role="button">
+                <Container>
+                    <Button
+                        tooltip="The big plus button!"
+                        icon="fas fa-user-plus"
+                        styles={{ backgroundColor: '#FF5C5C', color: lightColors.white }}
+                        
+                    />
+                </Container>
+            </div>
+
             {/* 1st */}
             <div className="border" >
                 <img className="img-fluid w-100" src={p1} alt="" />
@@ -164,7 +188,7 @@ const Post = () => {
 
                         <div >
 
-                           
+
                             <img src={threeDots} alt="" />
 
                         </div>

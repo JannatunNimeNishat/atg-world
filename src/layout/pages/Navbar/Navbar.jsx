@@ -11,7 +11,7 @@ import facebook from '../../../assets/desktop/modal/facebook.png'
 import google from '../../../assets/desktop/modal/gmail.png'
 
 import { useForm } from "react-hook-form";
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AuthContext } from '../../../providers/AuthProvider';
 
 import { FiLogOut } from "react-icons/fi";
@@ -19,7 +19,7 @@ import { FiLogOut } from "react-icons/fi";
 const Navbar = () => {
 
     const { user, loading, signUp, updateUser, signIn, googleSignIn, logOut } = useContext(AuthContext)
-    const navigate = useNavigate()
+    const [toggle,setToggle] = useState(true)
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {
@@ -70,46 +70,48 @@ const Navbar = () => {
 
 
     return (
-        // <nav classNameName="  navbar navbar-expand-lg bg-transparent bg-md-white bg-body-tertiary ">
-        // <nav classNameName="px-2  px-md-5  navbar  fixed-top navbar navbar-expand-lg  bg-md-white bg-sm-transparent  ">
+       
         <>
-
-            <div>
+             <div>
                 {/* modal */}
                 {/* 1st */}
-                <div className="modal fade modal-lg rounded" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1" >
+                <div className="modal modal-lg fade   rounded" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1" >
                     <div className="modal-dialog modal-dialog-centered" >
                         <div className="modal-content">
-
-                            <div className='w-100  text-end ' style={{ marginTop: "-28px", marginLeft: '15px' }}>
+                            {/* close for md device */}
+                            <div className='w-100 d-none d-md-block  text-end ' style={{ marginTop: "-28px", marginLeft: '15px' }}>
                                 <button type="button" className="btn-close bg-white mb-2" data-bs-dismiss="modal" aria-label="Close" ></button>
+                            </div>
+                            {/* close for small devise */}
+                            <div className='w-100 d-block d-md-none text-end '>
+                                <button type="button" className="btn-close bg-white " data-bs-dismiss="modal" aria-label="Close" ></button>
                             </div>
 
                             {/* 1st signUP */}
                             <div>
-                                <p className="py-1 px-3 " style={{ backgroundColor: '#EFFFF4' }}>Let's learn, share & inspire each other with our passion for computer engineering. Sign up now 🤘🏼</p>
+                                <p className="py-1 px-3 d-none d-md-block " style={{ backgroundColor: '#EFFFF4' }}>Let's learn, share & inspire each other with our passion for computer engineering. Sign up now 🤘🏼</p>
                                 <div className="px-4 py-4">
 
                                     <div className="d-flex py-2 align-items-center justify-content-between">
                                         <h3 className="fw-bold">Create Account</h3>
-                                        <p className='pe-3'>Already have an account? <span className="text-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Sign In</span></p>
+                                        <p className='pe-3'>Already have an account? <span className="text-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal"  role="button">Sign In</span></p>
                                     </div>
 
                                     {/* form */}
 
                                     <div className="d-flex gap-3">
 
-                                        <div className="w-50" >
+                                        <div className=" w-100 w-md-50" >
                                             <form onSubmit={handleSubmit(onSubmit)} className="" >
                                                 <div style={{ backgroundColor: '#f7f8fa' }}>
                                                     {/* 1st */}
-                                                    <div className="d-flex ">
-                                                        <input className="border border-secondary bg-light py-2" type="text" name="firstName" id="" placeholder=" First Name"
+                                                    <div className="d-flex w-100 ">
+                                                        <input className="border border-secondary bg-light py-2 w-50" type="text" name="firstName" id="" placeholder=" First Name"
                                                             {...register("firstName", { required: true })}
 
                                                         />
 
-                                                        <input className="border border-secondary bg-light  py-2" type="text" name="lastName" id="" placeholder=" Last Name"
+                                                        <input className="border border-secondary bg-light w-50  py-2" type="text" name="lastName" id="" placeholder=" Last Name"
                                                             {...register("lastName", { required: true })}
                                                         />
                                                     </div>
@@ -125,7 +127,18 @@ const Navbar = () => {
 
                                                     <div className="input-group  d-flex align-items-center ">
 
-                                                        <input type="password" className="form-control border border-end-0 border-secondary bg-light py-2" placeholder="Password" aria-label="Recipient's username" aria-describedby="button-addon2" name='password'
+                                                        <input
+                                                        
+                                                        type={
+                                                            
+                                                            toggle === true ?
+                                                            'password'
+                                                            :
+                                                            'text'
+
+                                                        }
+
+                                                         className="form-control border border-end-0 border-secondary bg-light py-2" placeholder="Password" aria-label="Recipient's username" aria-describedby="button-addon2" name='password'
                                                             {...register("password", {
                                                                 required: true,
                                                                 minLength: 6,
@@ -134,7 +147,7 @@ const Navbar = () => {
                                                         />
 
                                                         <div className="border d-flex justify-content-center align-items-center border-secondary bg-light" style={{ height: '42px' }}>
-                                                            <img className="pe-2" src={eye} alt="" style={{ height: '20px' }} />
+                                                            <img  role="button" onClick={()=> setToggle(!toggle)} className="pe-2 " src={eye} alt="" style={{ height: '20px' }} />
                                                         </div>
                                                     </div>
 
@@ -168,7 +181,7 @@ const Navbar = () => {
                                             </p>
 
                                         </div>
-                                        <div className="w-50">
+                                        <div className="d-none d-md-block w-50">
                                             <img src={signUpLogo} alt="" />
                                             <p className='ms-3'><small>By signing up, you agree to our Terms & conditions, Privacy policy</small></p>
                                         </div>
@@ -184,24 +197,30 @@ const Navbar = () => {
                 <div className="modal fade modal-lg rounded-lg" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
                     <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">
+                            {/* close for lg  */}
+                            <div className='d-none d-md-block w-100  text-end ' style={{ marginTop: "-28px", marginLeft: '15px' }}>
+                                <button type="button" className="btn-close bg-white mb-2" data-bs-dismiss="modal" aria-label="Close" ></button>
+                            </div>
 
-                            <div className='w-100  text-end ' style={{ marginTop: "-28px", marginLeft: '15px' }}>
+                            <div className='d-block d-md-none w-100  text-end ' >
                                 <button type="button" className="btn-close bg-white mb-2" data-bs-dismiss="modal" aria-label="Close" ></button>
                             </div>
 
                             <div>
-                                <p className="py-1 px-3 " style={{ backgroundColor: '#EFFFF4' }}>Let's learn, share & inspire each other with our passion for computer engineering. Sign up now 🤘🏼</p>
+                                <p className=" d-none d-md-block py-1 px-3 " style={{ backgroundColor: '#EFFFF4' }}>Let's learn, share & inspire each other with our passion for computer engineering. Sign up now 🤘🏼</p>
+
                                 <div className="px-4 py-4">
 
-                                    <div className="d-flex py-2 align-items-center justify-content-between">
+                                    <div className="d-md-flex  py-2 align-items-center justify-content-between">
                                         <h3 className="fw-bold">Sign In</h3>
-                                        <p className='pe-3'>Don’t have an account yet? <span className="text-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal" data-bs-dismiss="modal">Create new for free!</span></p>
+                                        <p className='pe-md-3'>Don’t have an account yet? <span className="text-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal" data-bs-dismiss="modal">Create new for free!</span></p>
                                     </div>
 
                                     {/* form */}
 
-                                    <div className="d-flex gap-3 pt-3">
-                                        <div className="w-50" >
+                                    <div className="d-flex gap-3 pt-md-3">
+
+                                        <div className="w-100 w-md-50" >
                                             <form onSubmit={handleSignIn} className="pb-3 pt-5" >
                                                 <div style={{ backgroundColor: '#f7f8fa' }}>
 
@@ -215,13 +234,22 @@ const Navbar = () => {
 
                                                     <div className="input-group  d-flex align-items-center ">
 
-                                                        <input type="password" className="form-control border border-end-0 border-secondary bg-light py-2" placeholder="Password" aria-label="Recipient's username" aria-describedby="button-addon2"
+                                                        <input 
+                                                        
+                                                        type={
+                                                            toggle ? 
+                                                            "password"
+                                                            :
+                                                            "text"
+                                                        } 
+                                                        
+                                                        className="form-control border border-end-0 border-secondary bg-light py-2" placeholder="Password" aria-label="Recipient's username" aria-describedby="button-addon2"
                                                             name='password'
                                                             required
                                                         />
 
                                                         <div className="border d-flex justify-content-center align-items-center border-secondary bg-light" style={{ height: '42px' }}>
-                                                            <img className="pe-2" src={eye} alt="" style={{ height: '20px' }} />
+                                                            <img onClick={()=> setToggle(!toggle)} className="pe-2" src={eye} alt="" style={{ height: '20px' }}  role="button" />
                                                         </div>
                                                     </div>
 
@@ -243,7 +271,8 @@ const Navbar = () => {
                                             </p>
 
                                         </div>
-                                        <div className="w-50">
+
+                                        <div className="d-none d-md-block w-50">
                                             <img src={signUpLogo} alt="" />
                                             <p className='ms-3'><small>By signing up, you agree to our Terms & conditions, Privacy policy</small></p>
                                         </div>
