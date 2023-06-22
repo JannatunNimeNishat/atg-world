@@ -10,7 +10,29 @@ import eye from '../../../assets/desktop/modal/eye.png'
 import facebook from '../../../assets/desktop/modal/facebook.png'
 import google from '../../../assets/desktop/modal/gmail.png'
 
+import { useForm } from "react-hook-form";
+
 const Navbar = () => {
+
+
+
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+
+    const onSubmit = (data) => {
+        console.log(data);
+
+    }
+
+    const handleSignIn = (e) => {
+        e.preventDefault()g
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+        console.log(email,password);
+
+    }
+
+
+
     return (
         // <nav classNameName="  navbar navbar-expand-lg bg-transparent bg-md-white bg-body-tertiary ">
         // <nav classNameName="px-2  px-md-5  navbar  fixed-top navbar navbar-expand-lg  bg-md-white bg-sm-transparent  ">
@@ -21,16 +43,8 @@ const Navbar = () => {
                 <div className="modal fade modal-lg rounded" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1" >
                     <div className="modal-dialog modal-dialog-centered" >
                         <div className="modal-content">
-                            {/*  <div className="modal-header">
-                                <h5 className="modal-title" id="exampleModalToggleLabel">Modal 1</h5>
-                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div className="modal-body">
-                                Show a second modal and hide this one with the button below.
-                            </div>
-                            <div className="modal-footer">
-                                <button className="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Open second modal</button>
-                            </div> */}
+
+                            {/* 1st signUP */}
                             <div>
                                 <p className="py-1 px-3 " style={{ backgroundColor: '#EFFFF4' }}>Let's learn, share & inspire each other with our passion for computer engineering. Sign up now 🤘🏼</p>
                                 <div className="px-4 py-4">
@@ -44,48 +58,82 @@ const Navbar = () => {
 
                                     <div className="d-flex gap-3">
                                         <div className="w-50" >
-                                            <form className="" >
+                                            <form onSubmit={handleSubmit(onSubmit)} className="" >
                                                 <div style={{ backgroundColor: '#f7f8fa' }}>
                                                     {/* 1st */}
                                                     <div className="d-flex ">
-                                                        <input className="border border-secondary bg-light py-2" type="text" name="" id="" placeholder=" First Name" />
+                                                        <input className="border border-secondary bg-light py-2" type="text" name="firstName" id="" placeholder=" First Name"
+                                                            {...register("firstName", { required: true })}
 
-                                                        <input className="border border-secondary bg-light  py-2" type="text" name="" id="" placeholder=" Last Name" />
+                                                        />
+
+                                                        <input className="border border-secondary bg-light  py-2" type="text" name="lastName" id="" placeholder=" Last Name"
+                                                            {...register("lastName", { required: true })}
+                                                        />
                                                     </div>
+
                                                     {/* 2nd */}
                                                     <div className="w-100 ">
-                                                        <input className="border border-secondary bg-light w-100 py-2" type="email" name="" id="" placeholder=" Email" />
+                                                        <input className="border border-secondary bg-light w-100 py-2" type="email" name="email" id="" placeholder=" Email"
+                                                            {...register("email", { required: true })}
+                                                        />
                                                     </div>
+                                                    {errors.email && <p className="text-danger">Email Required</p>}
                                                     {/* 3rd */}
 
                                                     <div className="input-group  d-flex align-items-center ">
-                                                        
-                                                        <input type="text" className="form-control border border-end-0 border-secondary bg-light py-2" placeholder="Password" aria-label="Recipient's username" aria-describedby="button-addon2" />
+
+                                                        <input type="password" className="form-control border border-end-0 border-secondary bg-light py-2" placeholder="Password" aria-label="Recipient's username" aria-describedby="button-addon2" name='password'
+                                                            {...register("password", {
+                                                                required: true,
+                                                                minLength: 6,
+                                                                pattern: /(?=.*[A-Z])(?=.*[!@#$&*])/
+                                                            })}
+                                                        />
+                                                        {/*  <input type="password" className="form-control border border-end-0 border-secondary bg-light py-2" placeholder="Password" aria-label="Recipient's username" aria-describedby="button-addon2" name='password'
+                                                            {...register("password", {
+                                                                required: true,
+                                                                minLength: 6,
+                                                                pattern: /(?=.*[A-Z])(?=.*[!@#$&*])/
+                                                            })}
+                                                        /> */}
+
+
 
                                                         <div className="border d-flex justify-content-center align-items-center border-secondary bg-light" style={{ height: '42px' }}>
                                                             <img className="pe-2" src={eye} alt="" style={{ height: '20px' }} />
                                                         </div>
                                                     </div>
+
+                                                    {/* password error */}
+                                                    {errors.password?.type === 'required' && <p className="text-danger">Password is required</p>}
+                                                    {errors.password?.type === 'minLength' && <p className="text-danger">Password must be 6 characters</p>}
+                                                    {errors.password?.type === 'pattern' && <p className="text-danger">Password must have one upper case and one special character</p>}
+
                                                     {/* 4th */}
                                                     <div className="w-100 ">
-                                                        <input className="border border-secondary bg-light w-100 py-2" type="password" name="" id="" placeholder=" Confirm Password" />
+                                                        <input className="border border-secondary bg-light w-100 px-2 py-2 rounded" type="password" name="confirmPassword" id="" placeholder=" Confirm Password"
+                                                            {...register('confirmPassword', {
+                                                                validate: (value) => value === watch("password") || 'Password do not match'
+                                                            })}
+                                                        />
+                                                        {errors.confirmPassword && <p className="text-danger">Password do not match</p>}
                                                     </div>
                                                 </div>
-
 
                                                 <input className=" mt-4 bg-primary rounded-pill text-white border-0 py-2 w-100 px-3" type="submit" value="Create Account" />
 
                                             </form>
-                                         
-                                                <p className='d-flex border py-2 mt-3 gap-3 align-items-center justify-content-center'>
-                                                    <img src={facebook} alt="" />
-                                                    Sign up with Facebook
-                                                </p>
-                                                <p className='d-flex border py-2 mt-3 gap-3 align-items-center justify-content-center'>
-                                                    <img src={google} alt="" />
-                                                    Sign up with Google
-                                                </p>
-                                          
+
+                                            <p className='d-flex border py-2 mt-3 gap-3 align-items-center justify-content-center'>
+                                                <img src={facebook} alt="" />
+                                                Sign up with Facebook
+                                            </p>
+                                            <p className='d-flex border py-2 mt-3 gap-3 align-items-center justify-content-center'>
+                                                <img src={google} alt="" />
+                                                Sign up with Google
+                                            </p>
+
                                         </div>
                                         <div className="w-50">
                                             <img src={signUpLogo} alt="" />
@@ -99,22 +147,78 @@ const Navbar = () => {
                         </div>
                     </div>
                 </div>
-                <div className="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+                {/* 2nd modal */}
+                <div className="modal fade modal-lg" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
                     <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title" id="exampleModalToggleLabel2">Modal 2</h5>
-                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+
+
+                            <div>
+                                <p className="py-1 px-3 " style={{ backgroundColor: '#EFFFF4' }}>Let's learn, share & inspire each other with our passion for computer engineering. Sign up now 🤘🏼</p>
+                                <div className="px-4 py-4">
+
+                                    <div className="d-flex py-2 align-items-center justify-content-between">
+                                        <h3 className="fw-bold">Sign In</h3>
+                                        <p className='pe-3'>Don’t have an account yet? <span className="text-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal" data-bs-dismiss="modal">Create new for free!</span></p>
+                                    </div>
+
+                                    {/* form */}
+
+                                    <div className="d-flex gap-3 pt-3">
+                                        <div className="w-50" >
+                                            <form onSubmit={handleSignIn} className="pb-3 pt-5" >
+                                                <div style={{ backgroundColor: '#f7f8fa' }}>
+
+                                                    <div className="w-100 ">
+                                                        <input className="border border-secondary bg-light w-100 py-2" type="email" name="email" id="" placeholder=" Email"
+                                                            required
+                                                        />
+
+                                                    </div>
+
+
+                                                    <div className="input-group  d-flex align-items-center ">
+
+                                                        <input type="password" className="form-control border border-end-0 border-secondary bg-light py-2" placeholder="Password" aria-label="Recipient's username" aria-describedby="button-addon2"
+                                                            name='password'
+                                                            required
+                                                        />
+
+                                                        <div className="border d-flex justify-content-center align-items-center border-secondary bg-light" style={{ height: '42px' }}>
+                                                            <img className="pe-2" src={eye} alt="" style={{ height: '20px' }} />
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+
+
+                                                <input className=" mt-4 bg-primary rounded-pill text-white border-0 py-2 w-100 px-3" type="submit" value="Create Account" />
+
+                                            </form>
+
+                                            <p className='d-flex border py-2 mt-3 gap-3 align-items-center justify-content-center'>
+                                                <img src={facebook} alt="" />
+                                                Sign up with Facebook
+                                            </p>
+                                            <p className='d-flex border py-2 mt-3 gap-3 align-items-center justify-content-center'>
+                                                <img src={google} alt="" />
+                                                Sign up with Google
+                                            </p>
+
+                                        </div>
+                                        <div className="w-50">
+                                            <img src={signUpLogo} alt="" />
+                                            <p className='ms-3'><small>By signing up, you agree to our Terms & conditions, Privacy policy</small></p>
+                                        </div>
+                                    </div>
+
+
+                                </div>
                             </div>
-                            <div className="modal-body">
-                                Hide this modal and show the first with the button below.
-                                {/*  */}
-                                
-                                {/*  */}
-                            </div>
-                            <div className="modal-footer">
-                                <button className="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal" data-bs-dismiss="modal">Back to first</button>
-                            </div>
+
+
                         </div>
                     </div>
                 </div>
