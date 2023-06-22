@@ -58,14 +58,14 @@ const Navbar = () => {
 
     }
 
-    const handleLogOut = ()=>{
+    const handleLogOut = () => {
         logOut()
-        .then(()=>{
+            .then(() => {
 
-        })
-        .catch((error)=>{
-            console.log(error.message);
-        })
+            })
+            .catch((error) => {
+                console.log(error.message);
+            })
     }
 
 
@@ -76,9 +76,14 @@ const Navbar = () => {
 
             <div>
                 {/* modal */}
+                {/* 1st */}
                 <div className="modal fade modal-lg rounded" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1" >
                     <div className="modal-dialog modal-dialog-centered" >
                         <div className="modal-content">
+
+                            <div className='w-100  text-end ' style={{ marginTop: "-28px", marginLeft: '15px' }}>
+                                <button type="button" className="btn-close bg-white mb-2" data-bs-dismiss="modal" aria-label="Close" ></button>
+                            </div>
 
                             {/* 1st signUP */}
                             <div>
@@ -93,6 +98,7 @@ const Navbar = () => {
                                     {/* form */}
 
                                     <div className="d-flex gap-3">
+
                                         <div className="w-50" >
                                             <form onSubmit={handleSubmit(onSubmit)} className="" >
                                                 <div style={{ backgroundColor: '#f7f8fa' }}>
@@ -126,15 +132,6 @@ const Navbar = () => {
                                                                 pattern: /(?=.*[A-Z])(?=.*[!@#$&*])/
                                                             })}
                                                         />
-                                                        {/*  <input type="password" className="form-control border border-end-0 border-secondary bg-light py-2" placeholder="Password" aria-label="Recipient's username" aria-describedby="button-addon2" name='password'
-                                                            {...register("password", {
-                                                                required: true,
-                                                                minLength: 6,
-                                                                pattern: /(?=.*[A-Z])(?=.*[!@#$&*])/
-                                                            })}
-                                                        /> */}
-
-
 
                                                         <div className="border d-flex justify-content-center align-items-center border-secondary bg-light" style={{ height: '42px' }}>
                                                             <img className="pe-2" src={eye} alt="" style={{ height: '20px' }} />
@@ -184,11 +181,13 @@ const Navbar = () => {
                     </div>
                 </div>
                 {/* 2nd modal */}
-                <div className="modal fade modal-lg" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+                <div className="modal fade modal-lg rounded-lg" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
                     <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">
 
-
+                            <div className='w-100  text-end ' style={{ marginTop: "-28px", marginLeft: '15px' }}>
+                                <button type="button" className="btn-close bg-white mb-2" data-bs-dismiss="modal" aria-label="Close" ></button>
+                            </div>
 
                             <div>
                                 <p className="py-1 px-3 " style={{ backgroundColor: '#EFFFF4' }}>Let's learn, share & inspire each other with our passion for computer engineering. Sign up now 🤘🏼</p>
@@ -291,13 +290,13 @@ const Navbar = () => {
                             {
                                 user ?
                                     <>
-                                     <li className="nav-item">
+                                        <li className="nav-item">
                                             <Link className="nav-link d-flex align-items-center gap-2">
                                                 <img src={user.photoURL} alt="" />
                                                 <span className="fw-semibold">{user.displayName} </span>
                                                 <select onClick={handleLogOut} className="border-0" name="" id="">
                                                     <option value=""></option>
-                                                   {/*  <option className='' value="">
+                                                    {/*  <option className='' value="">
                                                         <FiLogOut className=' bg-black'/>
                                                         logout
                                                         </option> */}
