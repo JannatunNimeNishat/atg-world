@@ -319,18 +319,19 @@ const Navbar = () => {
                             {
                                 user ?
                                     <>
-                                        <li className="nav-item">
+                                        <li className="nav-item d-flex  justify-content-center align-items-center">
                                             <Link className="nav-link d-flex align-items-center gap-2">
                                                 <img src={user.photoURL} alt="" />
                                                 <span className="fw-semibold">{user.displayName} </span>
-                                                <select onClick={handleLogOut} className="border-0" name="" id="">
+                                                {/* <select onClick={handleLogOut} className="border-0" name="" id=""> */}
+                                            </Link>
+                                                <select onClick={handleLogOut} className="border-0 w-50 border" name="" id="">
                                                     <option value=""></option>
-                                                    {/*  <option className='' value="">
+                                                     <option  className='' value="">
                                                         <FiLogOut className=' bg-black'/>
                                                         logout
-                                                        </option> */}
+                                                        </option>
                                                 </select>
-                                            </Link>
 
                                         </li>
                                     </>
